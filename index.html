@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>A Little Chalkboard Tribute ✨</title>
+<meta name="description" content="A Teacher's Day thank-you, just for you.">
+
+<!-- Google Fonts: headings (Fraunces), UI (Inter), handwritten (Caveat) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ BACKGROUND LAYERS ============ -->
+<div class="bg-glow" aria-hidden="true"></div>
+<div class="bg-vignette" aria-hidden="true"></div>
+<canvas id="particleField" class="particle-field" aria-hidden="true"></canvas>
+
+<!-- ============ MAIN STAGE ============ -->
+<main class="stage">
+
+  <!-- SCENE 1: INTRO -->
+  <section id="intro" class="scene is-active" aria-label="Introduction">
+    <div class="scene-inner">
+      <p class="eyebrow">Happy Teacher's Day 🍎</p>
+      <h1 class="heading-glow">A little something for the person who taught us how to think</h1>
+
+      <button id="scrollTrigger" class="scroll-wrap" type="button" aria-label="Tap to unroll the scroll">
+        <div class="scroll">
+          <div class="scroll-roll scroll-roll-top" aria-hidden="true"></div>
+          <div class="scroll-paper">
+            <div class="scroll-seal" aria-hidden="true">✦</div>
+          </div>
+          <div class="scroll-roll scroll-roll-bottom" aria-hidden="true"></div>
+        </div>
+      </button>
+      <p class="hint-text">Tap to unroll the scroll 📜</p>
+    </div>
+  </section>
+
+  <!-- SCENE 2: LESSONS WE WON'T FORGET -->
+  <section id="memories" class="scene" aria-label="Lessons we won't forget">
+    <div class="scene-inner">
+      <h2 class="heading-glow">Lessons We Won't Forget 📚</h2>
+
+      <div class="memory-panel">
+        <div class="memory-cards">
+          <figure class="memory-card memory-card--left">
+            <div class="memory-photo">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="0" y="0" width="100" height="100" fill="#EFE1BF"/>
+                <rect x="22" y="58" width="56" height="10" rx="2" fill="#C0483E"/>
+                <rect x="26" y="48" width="48" height="10" rx="2" fill="#3E7A5A"/>
+                <rect x="30" y="38" width="40" height="10" rx="2" fill="#D9A441"/>
+                <rect x="34" y="28" width="32" height="10" rx="2" fill="#8A5A3B"/>
+                <circle cx="50" cy="20" r="6" fill="#C0483E"/>
+                <path d="M50 14c0-3 2-4 4-4" stroke="#3E7A5A" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+              </svg>
+            </div>
+            <figcaption class="memory-caption">Every book you opened for us opened a door</figcaption>
+          </figure>
+
+          <figure class="memory-card memory-card--right">
+            <div class="memory-photo">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="0" y="0" width="100" height="100" fill="#1E3A2C"/>
+                <rect x="10" y="14" width="80" height="52" rx="4" fill="#173023" stroke="#C7A15A" stroke-width="2"/>
+                <path d="M22 40h30M22 48h40M22 56h24" stroke="#F2C879" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M60 42l4 5-9 9" stroke="#8FE3B0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <rect x="40" y="66" width="20" height="6" fill="#C7A15A"/>
+                <rect x="34" y="72" width="32" height="5" rx="2" fill="#8A6A3B"/>
+              </svg>
+            </div>
+            <figcaption class="memory-caption">Patience, chalk dust, and a hundred second chances</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <button class="btn-glow next-btn" type="button" data-next="memoryGame">Next Surprise 🎁</button>
+    </div>
+  </section>
+
+  <!-- SCENE 3: MATCH THE LESSON GAME -->
+  <section id="memoryGame" class="scene" aria-label="Match the lesson game">
+    <div class="scene-inner">
+      <h2 class="heading-glow">Match the Lesson 🍎</h2>
+      <p class="subtitle-warm">Find all the matching pairs ✨</p>
+
+      <div class="game-wrap">
+        <div class="game-grid" id="gameGrid" role="group" aria-label="Match the lesson cards"></div>
+
+        <div class="game-meta">
+          <p class="moves-counter"><span id="movesCount">0</span> moves</p>
+          <button id="shuffleBtn" class="btn-glow shuffle-btn" type="button">
+            <svg class="shuffle-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M4 6h3.5c1 0 1.7.4 2.3 1.2l6.4 8.6c.6.8 1.3 1.2 2.3 1.2H21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 18h3.5c1 0 1.7-.4 2.3-1.2l.6-.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14.5 7l1.1 1.2c.6.8 1.3 1.2 2.3 1.2H21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18.5 4.5L21 6.9l-2.5 2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18.5 19.5L21 17.1l-2.5-2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Shuffle Again
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 4: ONE LAST SURPRISE -->
+  <section id="surprise" class="scene" aria-label="One last surprise">
+    <div class="scene-inner">
+      <h2 class="heading-glow">One Last Surprise ✨</h2>
+      <p class="subtitle-warm">You found it! 🎉</p>
+
+      <div class="birthday-card">
+        <p class="birthday-card-title">Happy Teacher's Day!</p>
+        <p class="birthday-card-text">Thank you for every lesson you taught that wasn't on the syllabus &mdash; patience, kindness, and believing in us before we believed in ourselves. The world has more good people in it because of teachers like you. Today, it's your turn to be celebrated.</p>
+      </div>
+
+      <button class="btn-glow next-btn" type="button" data-next="letter">Read Our Letter 💌</button>
+    </div>
+  </section>
+
+  <!-- SCENE 5: THE LETTER -->
+  <section id="letter" class="scene" aria-label="A letter just for you">
+    <div class="scene-inner">
+
+      <div class="envelope" aria-hidden="true">
+        <svg viewBox="0 0 120 84" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="116" height="80" rx="8" fill="#FBF3E4" stroke="#C7A15A" stroke-width="1.5"/>
+          <path d="M4 8 L60 50 L116 8" fill="none" stroke="#C7A15A" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M4 78 L42 42" fill="none" stroke="#C7A15A" stroke-width="1.2" stroke-linejoin="round" opacity="0.6"/>
+          <path d="M116 78 L78 42" fill="none" stroke="#C7A15A" stroke-width="1.2" stroke-linejoin="round" opacity="0.6"/>
+          <path d="M60 46c-4-6-12-8-12-2 0 5 8 9 12 12 4-3 12-7 12-12 0-6-8-4-12 2z" fill="#C0483E"/>
+        </svg>
+      </div>
+
+      <h2 class="heading-glow">A Letter Just For You</h2>
+
+      <div class="letter-panel">
+        <p class="letter-opening">Dear Teacher,</p>
+        <p class="letter-body">You mean a lot to all of us.. You are not a teacher but the best supporter, our best consoler, our best guide, our best mentor ever..</p>
+        <p class="letter-body">Inspite of teaching us the lessons of computer in our book, you taught us how to love computer through a good teacher.A teacher like you in this stuffed world is Asuch a blessing to us.We are very overwhelmed to have a teacher like you.♡.</p>
+        <p class="letter-ending">With gratitude and love,<br>Your Students 10 2026-27</p>
+      </div>
+
+      <button id="watchAgainBtn" class="btn-glow next-btn" type="button">↻ Watch it again</button>
+    </div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+            </html>
+
